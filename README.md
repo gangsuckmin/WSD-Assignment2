@@ -3,7 +3,7 @@
 
 ---
 
-## 프로젝트 개요 (문제정의, 주요 기능 목록)
+## 프로젝트 개요
 
 ### 문제 정의
 과제 1에서 설계한 데이터베이스 스키마(ERD/명세서)를 기반으로,
@@ -46,7 +46,7 @@ java -jar build/libs/assignment2-0.0.1-SNAPSHOT.jar
 DB_HOST=localhost
 DB_PORT=3306
 DB_NAME=assignment2
-DB_USERNAME=appuser
+DB_USERNAME=assignment2
 DB_PASSWORD=********
 
 # JWT
@@ -109,9 +109,9 @@ Authorization: Bearer {accessToken}
 ## DB 연결 정보 (테스트용)
 
 - Host: 113.198.66.68
-- Port: 3306
+- Port: 19083
 - Database: assignment2
-- Username: appuser
+- Username: assignment2
 - Password: 별도 제출 파일에 명시
 - 권한 범위: 해당 데이터베이스 접근 권한만 부여
 
@@ -119,21 +119,43 @@ Authorization: Bearer {accessToken}
 
 ## 엔드포인트 요약표
 
-| Method | URL | 설명 |
-|--------|-----|------|
-| POST | /auth/login | 로그인 |
-| POST | /auth/refresh | 토큰 재발급 |
-| GET | /health | 헬스체크 |
-| GET | /books | 도서 목록 조회 |
-| GET | /books/{id} | 도서 상세 조회 |
-| POST | /reviews | 리뷰 작성 |
-| GET | /reviews | 리뷰 목록 조회 |
-| POST | /comments | 댓글 작성 |
-| GET | /comments | 댓글 조회 |
-| POST | /orders | 주문 생성 |
-| GET | /orders | 주문 조회 |
-
----
+| No | Method | URL | 설명 | 권한 |
+|----|--------|-----|------|------|
+| 1 | POST | /auth/login | 로그인 (Access / Refresh Token 발급) | ALL |
+| 2 | POST | /auth/refresh | Access Token 재발급 | ALL |
+| 3 | POST | /auth/logout | 로그아웃 | USER |
+| 4 | GET | /users/me | 내 정보 조회 | USER |
+| 5 | PATCH | /users/me | 내 정보 수정 | USER |
+| 6 | GET | /users | 사용자 목록 조회 | ADMIN |
+| 7 | PATCH | /users/{id}/deactivate | 사용자 비활성화 | ADMIN |
+| 8 | POST | /books | 도서 등록 | ADMIN |
+| 9 | GET | /books | 도서 목록 조회 (페이지네이션/정렬/검색) | ALL |
+| 10 | GET | /books/{id} | 도서 상세 조회 | ALL |
+| 11 | PATCH | /books/{id} | 도서 정보 수정 | ADMIN |
+| 12 | DELETE | /books/{id} | 도서 삭제 | ADMIN |
+| 13 | POST | /reviews | 리뷰 작성 | USER |
+| 14 | GET | /reviews | 리뷰 목록 조회 | ALL |
+| 15 | GET | /reviews/{id} | 리뷰 상세 조회 | ALL |
+| 16 | PATCH | /reviews/{id} | 리뷰 수정 | USER |
+| 17 | DELETE | /reviews/{id} | 리뷰 삭제 | USER |
+| 18 | POST | /reviews/{id}/like | 리뷰 좋아요 | USER |
+| 19 | DELETE | /reviews/{id}/like | 리뷰 좋아요 취소 | USER |
+| 20 | POST | /comments | 댓글 작성 | USER |
+| 21 | GET | /comments | 댓글 목록 조회 | ALL |
+| 22 | PATCH | /comments/{id} | 댓글 수정 | USER |
+| 23 | DELETE | /comments/{id} | 댓글 삭제 | USER |
+| 24 | POST | /comments/{id}/like | 댓글 좋아요 | USER |
+| 25 | DELETE | /comments/{id}/like | 댓글 좋아요 취소 | USER |
+| 26 | POST | /cart/items | 장바구니에 도서 추가 | USER |
+| 27 | GET | /cart | 내 장바구니 조회 | USER |
+| 28 | PATCH | /cart/items/{id} | 장바구니 수량 변경 | USER |
+| 29 | DELETE | /cart/items/{id} | 장바구니 항목 삭제 | USER |
+| 30 | DELETE | /cart/clear | 장바구니 비우기 | USER |
+| 31 | POST | /orders | 주문 생성 | USER |
+| 32 | GET | /orders | 내 주문 목록 조회 | USER |
+| 33 | GET | /orders/{id} | 주문 상세 조회 | USER |
+| 34 | PATCH | /orders/{id}/cancel | 주문 취소 | USER |
+| 35 | GET | /users/me/likes | 내가 누른 좋아요 목록 조회 | USER |
 
 ## 성능 / 보안 고려사항
 - JWT 기반 Stateless 인증 구조
