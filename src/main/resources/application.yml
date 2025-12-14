@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/assignment2?serverTimezone=Asia/Seoul
+    username: root
+    password: kang11472!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+  flyway:
+    enabled: true
+
+server:
+  port: 8080
+
+jwt:
+  secret: "change-me-change-me-change-me-change-me"
+  access-exp-min: 15
+  refresh-exp-days: 14
