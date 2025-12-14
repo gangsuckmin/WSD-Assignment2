@@ -35,3 +35,24 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### ===== Assignment2 / Security =====
+.env
+.env.*
+*.pem
+*.ppk
+key/
+keys/
+secrets/
+
+### ===== Logs =====
+logs/
+*.log
+
+### ===== OS =====
+.DS_Store
+Thumbs.db
+
+### ===== Test / Coverage =====
+coverage/
+*.exec
