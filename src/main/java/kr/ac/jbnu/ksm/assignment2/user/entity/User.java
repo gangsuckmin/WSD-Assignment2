@@ -1,5 +1,5 @@
 package kr.ac.jbnu.ksm.assignment2.user.entity;
-
+import jakarta.persistence.Convert;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,9 +17,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id; // 스키마: int unsigned
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = RoleConverter.class)
     @Column(name = "role", nullable = false, length = 16)
-    private UserRole role; // DB enum: 'user','admin'
+    private Role role; // DB enum: 'user','admin'
 
     @Column(name = "login_id", nullable = false, unique = true, length = 50)
     private String loginId;

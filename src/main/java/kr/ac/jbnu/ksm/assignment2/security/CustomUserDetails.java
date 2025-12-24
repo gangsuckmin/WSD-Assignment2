@@ -1,7 +1,7 @@
 package kr.ac.jbnu.ksm.assignment2.security;
 
 import kr.ac.jbnu.ksm.assignment2.user.entity.User;
-import kr.ac.jbnu.ksm.assignment2.user.entity.UserRole;
+import kr.ac.jbnu.ksm.assignment2.user.entity.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +14,7 @@ public class CustomUserDetails implements UserDetails {
     private final Integer id;
     private final String loginId;
     private final String password;
-    private final UserRole role;
+    private final Role role;
     private final boolean active;
 
     public CustomUserDetails(User user) {
@@ -34,9 +34,7 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // ROLE_USER / ROLE_ADMIN
-        return List.of(
-                new SimpleGrantedAuthority("ROLE_" + role.name().toUpperCase())
-        );
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override
